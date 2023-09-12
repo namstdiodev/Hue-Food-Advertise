@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { initFirebase } from '../../firebase/initFirebase'
 
 export default function Home() {
   return (
