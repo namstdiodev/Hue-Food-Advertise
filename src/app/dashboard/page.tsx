@@ -12,7 +12,7 @@ const DashboardPageLayout = (props: Props) => {
   return (
     <div>
       <div className="text-white">{session?.data?.user?.email}</div>
-      <button className="text-white" onClick={() => signOut()}>
+      <button className="text-dark" onClick={() => signOut()}>
         Logout
       </button>
     </div>

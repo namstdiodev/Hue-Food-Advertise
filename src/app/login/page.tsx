@@ -4,7 +4,7 @@ import useLogin, { Props } from "./hook";
 import { ReceivedProps } from "./type";
 import Link from "next/link";
 
-const LoginPageLayout = (props: Props) => {
+const LoginPageLayout = ({ handleSignIn }: Props) => {
   return (
     <section>
       <div
@@ -40,13 +40,14 @@ const LoginPageLayout = (props: Props) => {
               </div>
               <div className="my-8 flex  justify-center text-lg text-black">
                 <button
-                  type="submit"
+                  onClick={handleSignIn}
+                  type="button"
                   className="rounded-3xl bg-black bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-[#4f4746]"
                 >
                   Đăng nhập
                 </button>
               </div>
-              <div className="flex justify-center items-center whitespace-nowrap text-sm sm:text-lg">
+              {/* <div className="flex justify-center items-center whitespace-nowrap text-sm sm:text-lg">
                 <p className="mb-6">
                   <span className="text-gray-500 whitespace-normal">
                     Chưa có tài khoản?{" "}
@@ -58,7 +59,7 @@ const LoginPageLayout = (props: Props) => {
                     Đăng ký
                   </Link>
                 </p>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>
