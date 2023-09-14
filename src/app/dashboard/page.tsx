@@ -9,16 +9,7 @@ const DashboardPageLayout = (props: Props) => {
     required: true,
   });
 
-  return (
-    <div>
-      <header>
-        <div className="text-white">{session?.data?.user?.email}</div>
-        <button className="text-dark" onClick={() => signOut()}>
-          Logout
-        </button>
-      </header>
-    </div>
-  );
+  return <div></div>;
 };
 
 const Dashboard = (props: ReceivedProps) => {

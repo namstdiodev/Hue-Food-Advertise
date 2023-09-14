@@ -1,6 +1,7 @@
 import React from "react";
 import { MenuOutlined, LogoutOutlined } from "@ant-design/icons";
 import classNames from "classnames";
+import { signOut } from "next-auth/react";
 
 type Props = {
   onMenuButtonClick(): void;
@@ -22,7 +23,7 @@ const Navbar = (props: Props) => {
       >
         <MenuOutlined />
       </button>
-      <button className="ml-6 border-solid border-2 border-zinc-500 rounded-lg h-10 w-10 hover:bg-[#9eb0d3]">
+      <button onClick={() => signOut()} className="ml-6 border-solid border-2 border-zinc-500 rounded-lg h-10 w-10 hover:bg-[#9eb0d3]">
         <LogoutOutlined className="h-6 w-6" />
       </button>
     </nav>
