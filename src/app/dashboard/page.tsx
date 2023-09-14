@@ -9,7 +9,9 @@ const DashboardPageLayout = (props: Props) => {
     required: true,
   });
 
-  return <div></div>;
+  return (
+    <div>1212</div>
+  )
 };
 
 const Dashboard = (props: ReceivedProps) => {
