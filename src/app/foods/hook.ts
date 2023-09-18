@@ -1,6 +1,7 @@
 import { ReceivedProps } from "./type";
 
 const useFoods = (props: ReceivedProps) => {
+  
   return {
     ...props,
   };
