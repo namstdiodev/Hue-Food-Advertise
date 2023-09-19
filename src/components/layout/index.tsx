@@ -46,7 +46,7 @@ const SiderMenu = () => {
           {
             key: "2",
             icon: <UserOutlined />,
-            label: "Quản lý người dùng",
+            label: <Link href="/users">Quản lý người dùng</Link>,
           },
         ]}
       />
@@ -92,19 +92,10 @@ const PageLayout = ({
         } overflow-hidden hidden md:block`}
       />
       <Sider
-        // className="!bg-white hidden md:block"
         className="!bg-white h-screen left-0 bottom-0 top-0 !fixed overflow-auto hidden md:block"
         trigger={null}
         collapsible
         collapsed={collapsed}
-        // style={{
-        //   overflow: "auto",
-        //   height: "100vh",
-        //   position: "fixed",
-        //   left: 0,
-        //   top: 0,
-        //   bottom: 0,
-        // }}
       >
         <div className="flex flex-col h-full">
           <SiderMenu />

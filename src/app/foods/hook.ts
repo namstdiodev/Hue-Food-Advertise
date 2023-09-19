@@ -1,6 +1,12 @@
 import { ReceivedProps } from "./type";
 import { db } from "../../../firebase/initFirebase";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 const useFoods = (props: ReceivedProps) => {
@@ -8,7 +14,16 @@ const useFoods = (props: ReceivedProps) => {
   const fetchFoods = async () => {
     try {
       const response: any = await getDocs(collection(db, "foods"));
-      setFoods(response.docs.map((doc: any) => ({ ...doc.data(), id: doc.id })));
+      setFoods(
+        response.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+      );
+    } catch (error) {}
+  };
+  const handleDelete = async (id: string) => {
+    try {
+      const docRef = doc(db, "foods", id);
+      await deleteDoc(docRef);
+      fetchFoods();
     } catch (error) {}
   };
 
@@ -18,6 +33,7 @@ const useFoods = (props: ReceivedProps) => {
   return {
     ...props,
     foods,
+    handleDelete
   };
 };
 

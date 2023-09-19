@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import useFoods, { Props } from "./hook";
+import React from "react";
+import useUsers, { Props } from "./hook";
 import { ReceivedProps } from "./type";
 import Table, { ColumnsType } from "antd/es/table";
+import { Button } from "antd";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
-import Image from "next/image";
-import axios from "axios";
 
 interface DataType {
   name: string;
@@ -14,34 +13,21 @@ interface DataType {
   id: string;
 }
 
-
-const FooodPageLayout = ({ foods, handleDelete }: Props) => {
+const UserPageLayout = ({ users, handleCreateNavigation }: Props) => {
   const columns: ColumnsType<DataType> = [
     {
-      title: "Tên món ăn",
+      title: "Tên tài khoản",
       dataIndex: "name",
       align: "center",
       key: "id",
     },
     {
-      title: "Nội dung món ăn",
-      dataIndex: "content",
+      title: "Email",
+      dataIndex: "email",
       align: "center",
       key: "id",
-      render: (value) => <div dangerouslySetInnerHTML={{ __html: value }} />,
     },
-    {
-      title: "Hình ảnh",
-      dataIndex: "food_image",
-      align: "center",
-      key: "id",
-      render: (value) => (
-        <div className="flex justify-center">
-          <Image width={100} height={100} src={value} alt="image_food" />
-        </div>
-      ),
-    },
-  
+
     {
       title: "Tuỳ chỉnh",
       align: "center",
@@ -55,7 +41,7 @@ const FooodPageLayout = ({ foods, handleDelete }: Props) => {
                 console.log("Hello World");
               }}
             />
-            <DeleteOutlined onClick={() => handleDelete(record.id)} className="hover:text-red-600" />
+            <DeleteOutlined className="hover:text-red-600" />
             <EyeOutlined className="hover:text-red-600" />
           </div>
         );
@@ -64,10 +50,16 @@ const FooodPageLayout = ({ foods, handleDelete }: Props) => {
   ];
   return (
     <div className="bg-white round-sm p-4">
+      <div className="flex items-center mb-8 justify-between">
+        <p className="text-xl font-bold">Tạo Tài Khoản</p>
+        <Button onClick={handleCreateNavigation} htmlType="submit">
+          Tạo tài khoản
+        </Button>
+      </div>
       <Table
         columns={columns}
         pagination={{ position: ["bottomCenter"] }}
-        dataSource={foods}
+        dataSource={users}
         bordered
         // loading={loading}
       />
@@ -75,7 +67,7 @@ const FooodPageLayout = ({ foods, handleDelete }: Props) => {
   );
 };
 
-const Foods = (props: ReceivedProps) => {
-  return <FooodPageLayout {...useFoods(props)} />;
+const Users = (props: ReceivedProps) => {
+  return <UserPageLayout {...useUsers(props)} />;
 };
-export default Foods;
+export default Users;
