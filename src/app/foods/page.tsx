@@ -17,24 +17,25 @@ interface DataType {
 const columns: ColumnsType<DataType> = [
   {
     title: "Tên món ăn",
-    dataIndex: "title",
+    dataIndex: "name",
     align: "center",
     key: "id",
   },
   {
     title: "Nội dung món ăn",
-    dataIndex: "url",
+    dataIndex: "content",
     align: "center",
     key: "id",
+    render: (value) => <div dangerouslySetInnerHTML={{ __html: value }} />,
   },
   {
     title: "Hình ảnh",
-    dataIndex: "thumbnailUrl",
+    dataIndex: "food_image",
     align: "center",
     key: "id",
-    render: (thumbnailUrl) => (
+    render: (value) => (
       <div className="flex justify-center">
-        <Image width={100} height={100} src={thumbnailUrl} alt={thumbnailUrl} />
+        <Image width={100} height={100} src={value} alt="image_food" />
       </div>
     ),
   },
@@ -60,7 +61,7 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const FooodPageLayout = (props: ReceivedProps) => {
+const FooodPageLayout = ({ foods }: Props) => {
   const [dataSource, setDataSource] = useState([]);
 
   return (
@@ -68,7 +69,7 @@ const FooodPageLayout = (props: ReceivedProps) => {
       <Table
         columns={columns}
         pagination={{ position: ["bottomCenter"] }}
-        dataSource={dataSource}
+        dataSource={foods}
         bordered
         // loading={loading}
       />

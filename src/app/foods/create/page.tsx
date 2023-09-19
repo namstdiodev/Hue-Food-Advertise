@@ -6,11 +6,10 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button } from "antd";
 import Image from "next/image";
+import { getFilePreview } from "@src/helpers/file";
 
 const FooodPageLayout = ({
   formik,
-  editorState,
-  files,
   onEditorStateChange,
   getRootProps,
   getInputProps,
@@ -20,7 +19,7 @@ const FooodPageLayout = ({
       <form onSubmit={formik.handleSubmit}>
         <div className="flex items-center justify-between">
           <p className="text-xl font-bold mb-8">Tạo Món Ăn</p>
-          <Button>Tạo món ăn</Button>
+          <Button loading={formik.isSubmitting} htmlType="submit">Tạo món ăn</Button>
         </div>
         <div className="flex flex-col">
           <label className="text-[#616161] font-bold">Tên món ăn</label>
@@ -40,9 +39,9 @@ const FooodPageLayout = ({
             })}
           >
             <input {...getInputProps()} />
-            {files ? (
+            {formik?.values?.image ? (
               <Image
-                src={files || ""}
+                src={getFilePreview(formik?.values?.image) || ""}
                 width={400}
                 height={200}
                 className="rounded-sm"
@@ -68,7 +67,7 @@ const FooodPageLayout = ({
               wrapperClassName="rounded-md border-solid border-[1px] border-[#0000003b]"
               toolbarClassName="!rounded-t-md"
               editorClassName="mx-4 min-h-[400px]"
-              editorState={editorState}
+              editorState={formik?.values.content}
               onEditorStateChange={onEditorStateChange}
               toolbar={{
                 inline: {

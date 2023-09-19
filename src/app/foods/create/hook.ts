@@ -4,19 +4,19 @@ import { ReceivedProps } from "./type";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import { useDropzone } from "react-dropzone";
-import { getFilePreview } from "@src/helpers/file";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../../../firebase/initFirebase";
+import { v4 as uuid } from "uuid";
+import { db, storage } from "../../../../firebase/initFirebase";
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
+import { alertError } from "@src/helpers/errorElert";
+import { useRouter } from "next/navigation";
 
 const useFoods = (props: ReceivedProps) => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [files, setFiles] = useState<any>()
-  const { getRootProps, getInputProps } = useDropzone({
-    maxFiles: 1,
-    onDrop: (acceptedFiles) => {
-        setFiles(getFilePreview(acceptedFiles[0]))
-    }
-  });
+  const router = useRouter()
   const formik: FormikProps<any> = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -25,26 +25,42 @@ const useFoods = (props: ReceivedProps) => {
       image: "",
     },
     onSubmit: (values: any) => {
-        handleSubmitFood()
+      handleSubmitFood(values);
     },
   });
 
-  const handleSubmitFood = async () => {
-    const parseContent = convertToRaw(editorState?.getCurrentContent());
-    await addDoc(collection(db, 'foods'), {
-        name: 'Bún bò huế',
-        content: draftToHtml(parseContent),
-    })
-  }
-  const onEditorStateChange = (state: never) => {
-    setEditorState(state);
+  const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
+    onDrop: (acceptedFiles) => {
+      formik.setFieldValue('image', acceptedFiles[0])
+    },
+  });
+
+  const handleSubmitFood = async (values: any) => {
+    try {
+      const parseContent = convertToRaw(values?.content?.getCurrentContent());
+      const imageRef = storageRef(storage, `foods/${uuid()}`);
+      const { ref } = await uploadBytes(imageRef, values.image)
+      const url = await getDownloadURL(ref)
+      await addDoc(collection(db, 'foods'), {
+          name: values?.name,
+          content: draftToHtml(parseContent),
+          food_image: url
+      })
+      router.push('/foods')
+    } catch (error) {
+      formik.setSubmitting(false)
+      alertError('Đã xảy ra lỗi')
+    }
   };
-  console.log(files);
+
+  const onEditorStateChange = (state: never) => {
+    formik.setFieldValue('content', state)
+  };
+
   return {
     ...props,
     formik,
-    editorState,
-    files,
     getRootProps,
     getInputProps,
     onEditorStateChange,
