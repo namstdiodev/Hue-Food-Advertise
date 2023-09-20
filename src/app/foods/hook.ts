@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 
 const useFoods = (props: ReceivedProps) => {
   const [foods, setFoods] = useState<any[]>([]);
+  const router = useRouter();
+
   const fetchFoods = async () => {
     try {
       const response: any = await getDocs(collection(db, "foods"));
@@ -20,6 +22,7 @@ const useFoods = (props: ReceivedProps) => {
       );
     } catch (error) {}
   };
+  
   const handleDelete = async (id: string) => {
     try {
       const docRef = doc(db, "foods", id);
@@ -32,7 +35,6 @@ const useFoods = (props: ReceivedProps) => {
     fetchFoods();
   }, []);
 
-  const router = useRouter();
   const handeCreateFood = () => {
     router.push("/foods/create");
   };

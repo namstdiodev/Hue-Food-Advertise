@@ -6,8 +6,10 @@ import Table, { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { Button, TabsProps, Tabs, Row, Col, Card } from "antd";
-import gridIcon from "../../../public/icons/gridIcon.svg";
-import listIcon from "../../../public/icons/listIcon.svg";
+import gridIcon from "../../../public/icons/icon-view-grid-default.svg";
+import gridIconActive from "../../../public/icons/icon-view-grid-active.svg";
+import listIcon from "../../../public/icons/icon-view-list-black-strong.svg";
+import listIconActive from "../../../public/icons/icon-view-list-active.svg";
 import Meta from "antd/es/card/Meta";
 import styled from "styled-components";
 
@@ -17,8 +19,17 @@ const CustomCard = styled(Card)`
   }
 `;
 const CustomTabs = styled(Tabs)`
+  .ant-tabs-ink-bar {
+    display: none;
+  }
+  .ant-tabs-tab {
+    padding: 0px;
+    &:nth-child(2) {
+      margin: 0px 0px 0px 16px;
+    }
+  }
   .ant-tabs-nav::before {
-    border-bottom: none !important;
+    border: none;
   }
 `;
 
@@ -30,9 +41,9 @@ interface DataType {
 }
 
 const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
-  const [dataSource, setDataSource] = useState([]);
+  const [activeKey, setActiveKey] = useState("1");
   const onChange = (key: string) => {
-    console.log(key);
+    setActiveKey(key);
   };
 
   const columns: ColumnsType<DataType> = [
@@ -122,7 +133,7 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
       key: "1",
       label: (
         <Image
-          src={listIcon}
+          src={activeKey === "1" ? listIconActive : listIcon}
           width={23}
           height={23}
           alt="gird-icon"
@@ -143,7 +154,7 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
       key: "2",
       label: (
         <Image
-          src={gridIcon}
+          src={activeKey === "2" ? gridIconActive : gridIcon}
           width={23}
           height={23}
           alt="list-icon"
@@ -157,7 +168,15 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
 
   return (
     <div className="bg-white round-sm p-4 relative">
-      <Button className="absolute right-10 ">Tạo món ăn</Button>
+      <div className="flex items-center justify-between mb-8">
+        <p className="text-xl font-bold">Tạo Món Ăn</p>
+        <Button
+          onClick={handeCreateFood}
+          className="absolute right-10 cursor-pointer"
+        >
+          Tạo món ăn
+        </Button>
+      </div>
       <CustomTabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
   );
