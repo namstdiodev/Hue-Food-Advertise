@@ -8,9 +8,10 @@ import {
   doc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const useFoods = (props: ReceivedProps) => {
-  const [foods, setFoods] = useState([]);
+  const [foods, setFoods] = useState<any[]>([]);
   const fetchFoods = async () => {
     try {
       const response: any = await getDocs(collection(db, "foods"));
@@ -30,10 +31,17 @@ const useFoods = (props: ReceivedProps) => {
   useEffect(() => {
     fetchFoods();
   }, []);
+
+  const router = useRouter();
+  const handeCreateFood = () => {
+    router.push("/foods/create");
+  };
+
   return {
     ...props,
     foods,
-    handleDelete
+    handleDelete,
+    handeCreateFood,
   };
 };
 
