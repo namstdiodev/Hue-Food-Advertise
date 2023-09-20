@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SessionProvider from "./SectionProvider";
-import Layout from "@src/components/Layout";
+import AppLayout from "@src/components/Layout";
 import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="">
           <SessionProvider>
-            {pathname !== "/login" ? <Layout>{children}</Layout> : children}
+            {pathname !== "/login" ? <AppLayout>{children}</AppLayout> : children}
           </SessionProvider>
         </div>
       </body>
