@@ -3,7 +3,6 @@ import Image from "next/image";
 import useFoodCard, { Props, ReceivedProps } from "./hook";
 
 const FoodCardLayout = ({ data }: Props) => {
-  console.log(data);
   return (
     <StylesFoodCard>
       <div className="flip-card">

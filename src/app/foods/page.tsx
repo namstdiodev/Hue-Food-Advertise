@@ -1,24 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useFoods, { Props } from "./hook";
-import { ReceivedProps } from "./type";
+import { ReceivedProps, DataType } from "./type";
 import Table, { ColumnsType } from "antd/es/table";
-import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import Image from "next/image";
-import { Button, TabsProps, Tabs, Row, Col, Card } from "antd";
+import { Button, TabsProps, Tabs, Row, Col, Input } from "antd";
 import gridIcon from "../../../public/icons/icon-view-grid-default.svg";
 import gridIconActive from "../../../public/icons/icon-view-grid-active.svg";
 import listIcon from "../../../public/icons/icon-view-list-black-strong.svg";
 import listIconActive from "../../../public/icons/icon-view-list-active.svg";
-import Meta from "antd/es/card/Meta";
 import styled from "styled-components";
 import FoodCard from "@src/components/FoodCard";
 
-const CustomCard = styled(Card)`
-  img {
-    height: 200px !important;
-  }
-`;
 const CustomTabs = styled(Tabs)`
   .ant-tabs-ink-bar {
     display: none;
@@ -34,14 +33,28 @@ const CustomTabs = styled(Tabs)`
   }
 `;
 
-interface DataType {
-  name: string;
-  content: string;
-  food_image: string;
-  id: string;
-}
+const GridLayout = ({ foods }: { foods: DataType[] }) => {
+  return (
+    <div className="overflow-hidden">
+      <Row gutter={24} className="">
+        {foods.map((food: DataType) => (
+          <Col className="mb-[24px]" span={4} key={food.id}>
+            <FoodCard data={food} />
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+};
 
-const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
+const FooodPageLayout = ({
+  foods,
+  search,
+  setSearch,
+  handeCreateFood,
+  handleDelete,
+  handleSearch,
+}: Props) => {
   const [activeKey, setActiveKey] = useState("1");
   const onChange = (key: string) => {
     setActiveKey(key);
@@ -97,20 +110,6 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
     },
   ];
 
-  const GridLayout = () => {
-    return (
-      <div className="overflow-hidden">
-        <Row gutter={24} className="">
-          {foods.map((food) => (
-            <Col className="mb-[24px]" span={4} key={food.id}>
-              <FoodCard data={food} />
-            </Col>
-          ))}
-        </Row>
-      </div>
-    );
-  };
-
   const items: TabsProps["items"] = [
     {
       key: "1",
@@ -145,7 +144,7 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
           // onClick={handleGrid}
         />
       ),
-      children: <GridLayout />,
+      children: <GridLayout foods={foods} />,
     },
   ];
 
@@ -159,6 +158,14 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
         >
           Tạo món ăn
         </Button>
+      </div>
+      <div className="mb-4 max-w-[400px]">
+        <Input
+          prefix={<SearchOutlined />}
+          size="large"
+          placeholder="Tìm kiếm"
+          onChange={handleSearch}
+        />
       </div>
       <CustomTabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
