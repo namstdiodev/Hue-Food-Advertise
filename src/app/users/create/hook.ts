@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../../firebase/initFirebase";
 import { useFormik, FormikProps } from "formik";
 import { useRouter } from "next/navigation";
+import { validation } from "./validate";
 
 const useCreateUser = (props: ReceivedProps) => {
   const router = useRouter();
@@ -14,21 +15,23 @@ const useCreateUser = (props: ReceivedProps) => {
       name: "",
       email: "",
       password: "",
+      role: 'member',
     },
+    validationSchema: validation,
     onSubmit: (values: any) => {
       registerWithEmailAndPassword(values);
     },
   });
   
   const registerWithEmailAndPassword = async (values: IUserDataType) => {
-    const { email, password, name } = values;
+    const { email, password, name, role } = values;
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         name,
-        role: "user",
+        role,
         email,
       });
       router.push('/users')

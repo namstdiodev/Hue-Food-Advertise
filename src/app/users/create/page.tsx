@@ -2,11 +2,15 @@
 import React from "react";
 import useCreateUser, { Props } from "./hook";
 import { ReceivedProps } from "./type";
-import { Button } from "antd";
+import { Button, Select, Input } from "antd";
+import { StylesCreateUser } from "./styled";
+import ErrorMessage from "@src/components/ErrorMessage";
+
+const { Option } = Select;
 
 const CreateUserLayout = ({ registerWithEmailAndPassword, formik }: Props) => {
   return (
-    <div className="bg-white rounded-md p-4">
+    <StylesCreateUser className="bg-white rounded-md p-4">
       <form onSubmit={formik.handleSubmit}>
         <div className="flex items-center mb-8 justify-between">
           <p className="text-xl font-bold">Tạo Tài Khoản</p>
@@ -16,33 +20,49 @@ const CreateUserLayout = ({ registerWithEmailAndPassword, formik }: Props) => {
         </div>
         <div className="flex flex-col">
           <label className="text-[#616161] font-bold">Tên tài khoản</label>
-          <input
+          <Input
             placeholder="Nhập tên tài khoản"
-            className="rounded-md text-base w-[400px] max-w-full mt-1  px-4 py-2 text-[#6b6260] outline-none border-solid border-[1px] border-[#0000003b] placeholder-[#6b6260]"
             name="name"
+            className="mt-2 max-w-[400px] py-2"
             onChange={formik.handleChange}
           />
+          <ErrorMessage formik={formik} name="name" />
         </div>
         <div className="flex flex-col mt-4">
           <label className="text-[#616161] font-bold">Email</label>
-          <input
+          <Input
             placeholder="Nhập email"
-            className="rounded-md text-base w-[400px] max-w-full mt-1  px-4 py-2 text-[#6b6260] outline-none border-solid border-[1px] border-[#0000003b] placeholder-[#6b6260]"
             name="email"
+            className="mt-2 max-w-[400px] py-2"
             onChange={formik.handleChange}
           />
+          <ErrorMessage formik={formik} name="email" />
         </div>
         <div className="flex flex-col mt-4">
-          <label className="text-[#616161] font-bold">Password</label>
-          <input
+          <label className="text-[#616161] font-bold">Mật Khẩu</label>
+          <Input
             placeholder="Nhập mật khẩu"
-            className="rounded-md text-base w-[400px] max-w-full mt-1  px-4 py-2 text-[#6b6260] outline-none border-solid border-[1px] border-[#0000003b] placeholder-[#6b6260]"
             name="password"
+            className="mt-2 max-w-[400px] py-2"
             onChange={formik.handleChange}
           />
+          <ErrorMessage formik={formik} name="password" />
+        </div>
+        <div className="flex flex-col mt-4">
+          <label className="text-[#616161] font-bold">Phân Quyền</label>
+          <Select
+            style={{ height: "40px" }}
+            className="mt-2 max-w-[400px] h-[40px]"
+            placeholder="Chọn phân quyền"
+            value={formik.values.role}
+            onChange={(value: string) => formik.setFieldValue("role", value)}
+          >
+            <Option value="admin">admin</Option>
+            <Option value="member">member</Option>
+          </Select>
         </div>
       </form>
-    </div>
+    </StylesCreateUser>
   );
 };
 
