@@ -35,14 +35,7 @@ const UserPageLayout = ({ users, handleCreateNavigation }: Props) => {
       render: (_, record) => {
         return (
           <div className="space-x-2 ">
-            <EditOutlined
-              className="hover:text-red-600"
-              onClick={() => {
-                console.log("Hello World");
-              }}
-            />
-            <DeleteOutlined className="hover:text-red-600" />
-            <EyeOutlined className="hover:text-red-600" />
+            <DeleteOutlined className="hover:text-red-600 cursor-pointer" />
           </div>
         );
       },
