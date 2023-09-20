@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StylesFoodCard = styled.div`
   .flip-card {
     background-color: transparent;
-    // width: 190px;
     height: 254px;
     perspective: 1000px;
     font-family: sans-serif;

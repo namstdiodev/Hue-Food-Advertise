@@ -21,17 +21,12 @@ const useLogin = (props: ReceivedProps) => {
 
   const handleSignIn = async (values: IFormLoginValues) => {
     try {
-      const response: any = await signIn("credentials", {
+      await signIn("credentials", {
         ...values,
         redirect: false,
         // callbackUrl: "/",
       });
-      if (!response?.error) {
-        router.push("/dashboard");
-      } else {
-        formik.setSubmitting(false);
-        alertError("Tài khoản hoặc mật khẩu không chính xác !");
-      }
+      router.push("/foods");
     } catch (error) {
       console.log(error, "Error");
     }

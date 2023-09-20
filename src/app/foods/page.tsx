@@ -100,30 +100,9 @@ const FooodPageLayout = ({ foods, handeCreateFood, handleDelete }: Props) => {
   const GridLayout = () => {
     return (
       <div className="overflow-hidden">
-        <Row gutter={24} className="py-2">
+        <Row gutter={24} className="">
           {foods.map((food) => (
-            // <CustomCard
-            //   hoverable
-            //   style={{ width: 300, height: 400 }}
-            //   cover={
-            //     <Image
-            //       alt="Image"
-            //       width={200}
-            //       height={200}
-            //       src={item.food_image}
-            //     />
-            //   }
-            //   className="border border-solid border-[#E6E6FA] shadow-[5px_5px_15px_5px_rgba(230, 230, 250, 1)]"
-            //   key={item.id}
-            // >
-            //   <Meta
-            //     title={item.name}
-            //     description={
-            //       <div dangerouslySetInnerHTML={{ __html: item.content }} />
-            //     }
-            //   />
-            // </CustomCard>
-            <Col className="my-2" span={4} key={food.id}>
+            <Col className="mb-[24px]" span={4} key={food.id}>
               <FoodCard data={food} />
             </Col>
           ))}

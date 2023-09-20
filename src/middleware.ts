@@ -6,12 +6,12 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const loggedInUserOrNotAccessPath = request.nextUrl.pathname === "/login";
   if (url.pathname === "/") {
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(new URL("/dashboard", url));
+    url.pathname = "/foods";
+    return NextResponse.redirect(new URL("/foods", url));
   }
   if (loggedInUserOrNotAccessPath) {
     if (authToken) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(new URL("/foods", request.url));
     }
   } else {
     if (!authToken) {
@@ -21,5 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/dashboard"],
+  matcher: ["/", "/login", "/foods"],
 };

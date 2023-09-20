@@ -2,7 +2,6 @@ import { ReceivedProps } from "./type";
 import { db } from "../../../firebase/initFirebase";
 import {
   collection,
-  getDoc,
   getDocs,
   deleteDoc,
   doc,
