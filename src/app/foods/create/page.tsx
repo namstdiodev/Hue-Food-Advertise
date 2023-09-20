@@ -2,11 +2,17 @@
 import React from "react";
 import useFoods, { Props } from "./hook";
 import { ReceivedProps } from "./type";
-import { Editor } from "react-draft-wysiwyg";
+import { EditorProps } from 'react-draft-wysiwyg'
+import dynamic from 'next/dynamic'
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button } from "antd";
 import Image from "next/image";
 import { getFilePreview } from "@src/helpers/file";
+
+const Editor = dynamic<EditorProps>(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false }
+)
 
 const FooodPageLayout = ({
   formik,
