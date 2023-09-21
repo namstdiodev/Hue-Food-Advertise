@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const authToken = request.cookies.get("next-auth.session-token")?.value;
+  const authToken = request.cookies.get("uid")?.value;
   const url = request.nextUrl.clone();
   const loggedInUserOrNotAccessPath = request.nextUrl.pathname === "/login";
   if (url.pathname === "/") {
@@ -21,5 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/foods"],
+  matcher: ["/", "/login", "/foods", "/users"],
 };
