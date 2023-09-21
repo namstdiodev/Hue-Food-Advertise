@@ -25,7 +25,6 @@ const useLogin = (props: ReceivedProps) => {
       const response: any =  await await signInWithEmailAndPassword(auth, values.email, values.password);
       // setCookie('token', response.user.accessToken)
       setCookie('uid', response.user.uid)
-      console.log(response)
       router.push("/foods");
     } catch (error) {
       console.log(error, "Error");
