@@ -38,6 +38,10 @@ const useFoods = (props: ReceivedProps) => {
     router.push("/foods/create");
   };
 
+  const handleDetailFood = (id: string) => {
+    router.push(`/foods/${id}`);
+  }
+
   const handleSearch = (e: any) => {
     setFoods(
       data.filter((food) =>
@@ -54,6 +58,7 @@ const useFoods = (props: ReceivedProps) => {
     handeCreateFood,
     setSearch,
     handleSearch,
+    handleDetailFood,
   };
 };
 

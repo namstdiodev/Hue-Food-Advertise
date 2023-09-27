@@ -54,6 +54,7 @@ const FooodPageLayout = ({
   handeCreateFood,
   handleDelete,
   handleSearch,
+  handleDetailFood,
 }: Props) => {
   const [activeKey, setActiveKey] = useState("1");
   const onChange = (key: string) => {
@@ -103,7 +104,10 @@ const FooodPageLayout = ({
               onClick={() => handleDelete(record.id)}
               className="hover:text-red-600"
             />
-            <EyeOutlined className="hover:text-red-600" />
+            <EyeOutlined
+              onClick={() => handleDetailFood(record.id)}
+              className="hover:text-red-600"
+            />
           </div>
         );
       },
