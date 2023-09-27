@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/draftjs-to-html": "^0.8.1",
+    "@types/html-to-draftjs": "^1.4.1",
     "@types/uuid": "^9.0.4",
     "encoding": "^0.1.13"
   }
