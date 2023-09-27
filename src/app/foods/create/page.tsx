@@ -2,20 +2,21 @@
 import React from "react";
 import useFoods, { Props } from "./hook";
 import { ReceivedProps } from "./type";
-import { EditorProps } from 'react-draft-wysiwyg'
-import dynamic from 'next/dynamic'
+import { EditorProps } from "react-draft-wysiwyg";
+import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button } from "antd";
 import Image from "next/image";
 import { getFilePreview } from "@src/helpers/file";
 
 const Editor = dynamic<EditorProps>(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
-)
+);
 
 const FooodPageLayout = ({
   formik,
+  initValue,
   onEditorStateChange,
   getRootProps,
   getInputProps,
@@ -25,11 +26,14 @@ const FooodPageLayout = ({
       <form onSubmit={formik.handleSubmit}>
         <div className="flex items-center justify-between">
           <p className="text-xl font-bold mb-8">Tạo Món Ăn</p>
-          <Button loading={formik.isSubmitting} htmlType="submit">Tạo món ăn</Button>
+          <Button loading={formik.isSubmitting} htmlType="submit">
+            {initValue ? 'Lưu' : 'Tạo món ăn'}
+          </Button>
         </div>
         <div className="flex flex-col">
           <label className="text-[#616161] font-bold">Tên món ăn</label>
           <input
+            value={formik?.values?.name}
             placeholder="Tên món ăn"
             className="rounded-md text-base w-[400px] max-w-full mt-1  px-4 py-2 text-[#6b6260] outline-none border-solid border-[1px] border-[#0000003b] placeholder-[#6b6260]"
             name="name"
@@ -47,7 +51,11 @@ const FooodPageLayout = ({
             <input {...getInputProps()} />
             {formik?.values?.image ? (
               <Image
-                src={getFilePreview(formik?.values?.image) || ""}
+                src={
+                  typeof formik?.values?.image === "string"
+                    ? formik?.values?.image
+                    : getFilePreview(formik?.values?.image) || ""
+                }
                 width={400}
                 height={200}
                 className="rounded-sm"
@@ -96,7 +104,7 @@ const FooodPageLayout = ({
   );
 };
 
-const Foods = (props: ReceivedProps) => {
+const Foods = (props: any) => {
   return <FooodPageLayout {...useFoods(props)} />;
 };
 export default Foods;

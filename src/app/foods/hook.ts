@@ -49,6 +49,9 @@ const useFoods = (props: ReceivedProps) => {
       )
     );
   };
+  const handleEditFood = (id: string) => {
+    router.push(`/foods/edit/${id}`);
+  };
 
   return {
     ...props,
@@ -59,6 +62,7 @@ const useFoods = (props: ReceivedProps) => {
     setSearch,
     handleSearch,
     handleDetailFood,
+    handleEditFood,
   };
 };
 
