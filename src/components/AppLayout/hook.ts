@@ -15,7 +15,7 @@ const useLayout = (props: ReceivedProps) => {
 
   const user = auth.currentUser;
   const router = useRouter();
-  
+
   const items: any = [
     {
       key: "1",
@@ -34,14 +34,13 @@ const useLayout = (props: ReceivedProps) => {
   };
   const handeleCollapse = () => setCollapsed(!collapsed);
 
-
   const path: any = usePathname();
   const [selectedKey, setSelectedKey] = useState(
-    items.find((_item: any) => path.startsWith(_item.path)).key
+    items?.find((_item: any) => path?.startsWith(_item?.path))?.key
   );
 
   useEffect(() => {
-    setSelectedKey(items.find((_item: any) => path.startsWith(_item.path)).key);
+    setSelectedKey(items?.find((_item: any) => path?.startsWith(_item?.path))?.key);
   }, [path]);
 
   return {

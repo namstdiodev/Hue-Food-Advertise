@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { useFormik, FormikProps } from "formik";
 import { ReceivedProps } from "./type";
-import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import {
+  convertToRaw,
+} from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import { useDropzone } from "react-dropzone";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { db, storage } from "../../../../firebase/initFirebase";
 import {
@@ -16,23 +17,23 @@ import { alertError } from "@src/helpers/errorElert";
 import { useRouter } from "next/navigation";
 
 const useFoods = (props: ReceivedProps) => {
-  const router = useRouter()
+  const { initValue } = props;
+  const router = useRouter();
   const formik: FormikProps<any> = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: "",
-      content: "",
-      image: "",
+      name: initValue?.name || "",
+      content: initValue?.content || "",
+      image: initValue?.food_image,
     },
-    onSubmit: (values: any) => {
-      handleSubmitFood(values);
-    },
+    onSubmit: (values: any) =>
+      !initValue ? handleSubmitFood(values) : handleEditFood(values),
   });
 
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
-      formik.setFieldValue('image', acceptedFiles[0])
+      formik.setFieldValue("image", acceptedFiles[0]);
     },
   });
 
@@ -40,22 +41,46 @@ const useFoods = (props: ReceivedProps) => {
     try {
       const parseContent = convertToRaw(values?.content?.getCurrentContent());
       const imageRef = storageRef(storage, `foods/${uuid()}`);
-      const { ref } = await uploadBytes(imageRef, values.image)
-      const url = await getDownloadURL(ref)
-      await addDoc(collection(db, 'foods'), {
-          name: values?.name,
-          content: draftToHtml(parseContent),
-          food_image: url
-      })
-      router.push('/foods')
+
+      const { ref } = await uploadBytes(imageRef, values.image);
+      const url = await getDownloadURL(ref);
+      await addDoc(collection(db, "foods"), {
+        name: values?.name,
+        content: draftToHtml(parseContent),
+        food_image: url,
+      });
+
+      router.push("/foods");
     } catch (error) {
-      formik.setSubmitting(false)
-      alertError('Đã xảy ra lỗi')
+      formik.setSubmitting(false);
+      alertError("Đã xảy ra lỗi");
+    }
+  };
+
+  const handleEditFood = async (values: any) => {
+    try {
+      const parseContent = convertToRaw(values?.content?.getCurrentContent());
+      const params = {
+        name: values.name,
+        content: draftToHtml(parseContent),
+        food_image: initValue?.food_image,
+      };
+      if (typeof values?.image !== "string") {
+        const imageRef = storageRef(storage, `foods/${uuid()}`);
+        const { ref } = await uploadBytes(imageRef, values.image);
+        const url = await getDownloadURL(ref);
+        params.food_image = url;
+      }
+      await updateDoc(doc(db, "foods", String(initValue?.id)), params);
+      router.push("/foods");
+    } catch (error) {
+      formik.setSubmitting(false);
+      alertError("Đã xảy ra lỗi edit");
     }
   };
 
   const onEditorStateChange = (state: never) => {
-    formik.setFieldValue('content', state)
+    formik.setFieldValue("content", state);
   };
 
   return {

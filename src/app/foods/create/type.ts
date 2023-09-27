@@ -1,1 +1,3 @@
-export type ReceivedProps = Record<never, never>;
+export type ReceivedProps = {
+  initValue?: any;
+};

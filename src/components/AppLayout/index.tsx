@@ -1,3 +1,4 @@
+"use client"
 import {
   LogoutOutlined,
   MenuFoldOutlined,
@@ -10,8 +11,6 @@ import { Avatar, Drawer, Layout, Menu, Popover } from "antd";
 import styled from "styled-components";
 import useLayout, { Props, ReceivedProps } from "./hook";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from 'next/navigation';
 
 const { Header, Sider, Content } = Layout;
 
