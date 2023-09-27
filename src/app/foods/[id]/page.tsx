@@ -20,7 +20,7 @@ const FoodDetailPageLayout = ({ foodDataDetail, loading }: Props) => {
             />
           ) : (
             <Image
-              className="!h-full rounded-lg cursor-pointer w-full"
+              className="!h-full max-h-[600px] rounded-lg cursor-pointer w-full"
               src={foodDataDetail?.food_image}
               alt="food_image"
               width={400}

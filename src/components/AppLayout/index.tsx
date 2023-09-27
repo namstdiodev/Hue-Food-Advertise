@@ -28,7 +28,7 @@ const SiderMenu = ({ selectedKey }: { selectedKey: string }) => {
   return (
     <div style={{ flex: "1 1 0%" }}>
       <Link
-        href="/dashboard"
+        href="/foods"
         className="h-[32px] cursor-pointer m-4 bg-[#f5f5f5] rounded-[6px] flex items-center justify-center"
       >
         Logo
