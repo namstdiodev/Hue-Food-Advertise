@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   LogoutOutlined,
   MenuFoldOutlined,
@@ -11,6 +11,7 @@ import { Avatar, Drawer, Layout, Menu, Popover } from "antd";
 import styled from "styled-components";
 import useLayout, { Props, ReceivedProps } from "./hook";
 import Link from "next/link";
+import NoSSRWrapper from "../NoSSRWrapper";
 
 const { Header, Sider, Content } = Layout;
 
@@ -35,7 +36,7 @@ const SiderMenu = ({ selectedKey }: { selectedKey: string }) => {
       <Menu
         theme="light"
         activeKey={selectedKey}
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={["1"]}
         mode="inline"
         style={{
           border: "none",
@@ -81,7 +82,7 @@ const PageLayout = ({
         onClose={handeleCollapse}
         open={collapsed}
       >
-        <SiderMenu selectedKey={selectedKey}/>
+        <SiderMenu selectedKey={selectedKey} />
       </Drawer>
       {/* sidebar for pc : breakpoint > 756 px*/}
       <div
@@ -102,7 +103,7 @@ const PageLayout = ({
         collapsed={collapsed}
       >
         <div className="flex flex-col h-full">
-          <SiderMenu selectedKey={selectedKey}/>
+          <SiderMenu selectedKey={selectedKey} />
           <Menu
             theme="light"
             style={{
@@ -168,6 +169,10 @@ const PageLayout = ({
 };
 
 const AppLayout = (props: ReceivedProps) => {
-  return <PageLayout {...useLayout(props)} />;
+  return (
+    <NoSSRWrapper>
+      <PageLayout {...useLayout(props)} />
+    </NoSSRWrapper>
+  );
 };
 export default AppLayout;
