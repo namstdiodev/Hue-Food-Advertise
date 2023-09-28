@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 export type ReceivedProps = {
   data: {
     name: string;
@@ -8,8 +10,11 @@ export type ReceivedProps = {
 };
 
 const useFoodCard = (props: ReceivedProps) => {
+  const router = useRouter();
+
   return {
     ...props,
+    router,
   };
 };
 

@@ -9,8 +9,8 @@ const FoodEdit = ({ foodDetailData }: Props) => {
   return (
     <div>
       {!foodDetailData ? (
-       <div className="flex items-center bg-white rounded-lg justify-center min-h-[400px]">
-         <Spin />
+        <div className="flex items-center bg-white rounded-lg justify-center min-h-[400px]">
+          <Spin />
         </div>
       ) : (
         <FoodPageLayout initValue={foodDetailData} />

@@ -23,7 +23,7 @@ const FooodPageLayout = ({
   getInputProps,
 }: Props) => {
   return (
-    <div className="bg-white rounded-md p-4">
+    <div className="bg-white min-h-full rounded-md p-4">
       <form onSubmit={formik.handleSubmit}>
         <div className="flex items-center justify-between">
           <p className="text-xl font-bold mb-8">

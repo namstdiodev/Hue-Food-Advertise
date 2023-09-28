@@ -72,6 +72,7 @@ const FooodPageLayout = ({
   foods,
   search,
   width,
+  loading,
   setSearch,
   handeCreateFood,
   handleDelete,
@@ -180,7 +181,10 @@ const FooodPageLayout = ({
           pagination={{ position: ["bottomCenter"] }}
           dataSource={foods}
           bordered
-          // loading={loading}
+          loading={loading}
+          locale={{
+            emptyText: 'Không có dữ liệu'
+          }}
         />
       ),
     },
@@ -201,7 +205,7 @@ const FooodPageLayout = ({
   ];
 
   return (
-    <div className="bg-white round-sm p-4 relative">
+    <div className="bg-white rounded-lg min-h-full round-sm p-4 relative">
       <div className="flex items-center justify-between mb-8">
         <p className="text-xl font-bold">Danh sách Món Ăn</p>
         <Button

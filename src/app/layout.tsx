@@ -21,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {pathname !== "/login" ? <AppLayout>{children}</AppLayout> : children}
+        <title>Huế Food Advertise</title>
       </body>
+      
     </html>
   );
 }

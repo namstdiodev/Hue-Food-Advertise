@@ -2,11 +2,11 @@ import StylesFoodCard from "./styled";
 import Image from "next/image";
 import useFoodCard, { Props, ReceivedProps } from "./hook";
 
-const FoodCardLayout = ({ data }: Props) => {
+const FoodCardLayout = ({ data, router }: Props) => {
   return (
     <StylesFoodCard>
-      <div className="flip-card">
-        <div className="flip-card-inner">
+      <div className="flip-card cursor-pointer">
+        <div onClick={() => router.push(`/foods/${data.id}`)} className="flip-card-inner">
           <div className="flip-card-front">
             <Image
               alt="Image"

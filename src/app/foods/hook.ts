@@ -9,7 +9,8 @@ const useFoods = (props: ReceivedProps) => {
   const [data, setData] = useState<DataType[]>([]);
   const [foods, setFoods] = useState<DataType[]>([]);
   const [search, setSearch] = useState<string>("");
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -22,6 +23,7 @@ const useFoods = (props: ReceivedProps) => {
       }));
       setFoods(foods);
       setData(foods);
+      setLoading(false);
     } catch (error) {}
   };
 
@@ -43,7 +45,7 @@ const useFoods = (props: ReceivedProps) => {
 
   const handleDetailFood = (id: string) => {
     router.push(`/foods/${id}`);
-  }
+  };
 
   const handleSearch = (e: any) => {
     setFoods(
@@ -61,6 +63,7 @@ const useFoods = (props: ReceivedProps) => {
     foods,
     search,
     width,
+    loading,
     handleDelete,
     handeCreateFood,
     setSearch,
