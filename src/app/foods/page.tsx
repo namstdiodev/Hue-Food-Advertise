@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import useFoods, { Props } from "./hook";
 import { ReceivedProps, DataType } from "./type";
 import Table, { ColumnsType } from "antd/es/table";
@@ -8,19 +8,9 @@ import {
   DeleteOutlined,
   EyeOutlined,
   SearchOutlined,
-  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import Image from "next/image";
-import {
-  Button,
-  TabsProps,
-  Tabs,
-  Row,
-  Col,
-  Input,
-  Modal,
-  Image as AntdImage,
-} from "antd";
+import { Button, TabsProps, Tabs, Row, Col, Input } from "antd";
 import gridIcon from "../../../public/icons/icon-view-grid-default.svg";
 import gridIconActive from "../../../public/icons/icon-view-grid-active.svg";
 import listIcon from "../../../public/icons/icon-view-list-black-strong.svg";
@@ -72,14 +62,6 @@ const FooodPageLayout = ({
     setActiveKey(key);
   };
 
-  const config = {
-    title: "Xoá món ăn",
-    content: "Bạn có muốn xoá món ăn",
-    okText: "Đồng ý",
-    cancelText: "Huỷ",
-  };
-  const [modal, contextHolder] = Modal.useModal();
-
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên món ăn",
@@ -105,17 +87,9 @@ const FooodPageLayout = ({
       align: "center",
       key: "id",
       render: (value) => (
-        <>
-          <div className="flex justify-center">
-            <AntdImage
-              width={100}
-              height={100}
-              src={value}
-              alt="image_food"
-              className="cursor-pointer rounded-lg"
-            />
-          </div>
-        </>
+        <div className="flex justify-center">
+          <Image width={100} height={100} src={value} alt="image_food" />
+        </div>
       ),
     },
 
@@ -131,15 +105,9 @@ const FooodPageLayout = ({
               onClick={() => handleEditFood(record.id)}
             />
             <DeleteOutlined
-              onClick={async () => {
-                const confirmed = await modal.confirm(config);
-                if (confirmed) {
-                  handleDelete(record.id);
-                }
-              }}
+              onClick={() => handleDelete(record.id)}
               className="hover:text-red-600"
             />
-            {contextHolder}
             <EyeOutlined
               onClick={() => handleDetailFood(record.id)}
               className="hover:text-red-600"

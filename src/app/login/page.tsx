@@ -5,13 +5,8 @@ import useLogin, { Props } from "./hook";
 import { ReceivedProps } from "./type";
 import ErrorMessage from "@src/components/ErrorMessage";
 import { Button } from "antd";
-import { EyeFilled, EyeInvisibleFilled } from "@ant-design/icons";
 
-const LoginPageLayout = ({
-  formik,
-  isShowPassword,
-  setIsShowPassword,
-}: Props) => {
+const LoginPageLayout = ({ formik }: Props) => {
   return (
     <section>
       <div
@@ -48,27 +43,16 @@ const LoginPageLayout = ({
                 />
                 <ErrorMessage formik={formik} name="email" />
               </div>
-              <div className="relative mb-4 text-lg">
+              <div className="mb-4 text-lg">
                 <input
-                  className=" rounded-md text-base border-none w-full bg-[#e6e6e6] bg-opacity-50 px-6 py-2 text-center text-[#6b6260] placeholder-[#6b6260] outline-none backdrop-blur-md"
-                  type={isShowPassword ? "text" : "Password"}
+                  className="rounded-md text-base border-none w-full bg-[#e6e6e6] bg-opacity-50 px-6 py-2 text-center text-[#6b6260] placeholder-[#6b6260] outline-none backdrop-blur-md"
+                  type="Password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   name="password"
                   placeholder="Nhập mật khẩu"
                   autoComplete="false"
                 />
-                {isShowPassword ? (
-                  <EyeFilled
-                    className="absolute right-3 top-3 text-xl cursor-pointer text-[#4F4746]"
-                    onClick={() => setIsShowPassword((prevState) => !prevState)}
-                  />
-                ) : (
-                  <EyeInvisibleFilled
-                    className="absolute right-3 top-3 text-xl cursor-pointer text-[#4F4746]"
-                    onClick={() => setIsShowPassword((prevState) => !prevState)}
-                  />
-                )}
                 <ErrorMessage formik={formik} name="password" />
               </div>
               <div className="my-8 flex justify-center text-lg text-black">
