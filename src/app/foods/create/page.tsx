@@ -8,6 +8,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button } from "antd";
 import Image from "next/image";
 import { getFilePreview } from "@src/helpers/file";
+import ErrorMessage from "@src/components/ErrorMessage";
 
 const Editor = dynamic<EditorProps>(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -25,9 +26,11 @@ const FooodPageLayout = ({
     <div className="bg-white rounded-md p-4">
       <form onSubmit={formik.handleSubmit}>
         <div className="flex items-center justify-between">
-          <p className="text-xl font-bold mb-8">{initValue ? 'Chỉnh Sửa Món Ăn' : 'Tạo Món Ăn'}</p>
+          <p className="text-xl font-bold mb-8">
+            {initValue ? "Chỉnh Sửa Món Ăn" : "Tạo Món Ăn"}
+          </p>
           <Button loading={formik.isSubmitting} htmlType="submit">
-            {initValue ? 'Lưu' : 'Tạo món ăn'}
+            {initValue ? "Lưu" : "Tạo món ăn"}
           </Button>
         </div>
         <div className="flex flex-col">
@@ -39,6 +42,7 @@ const FooodPageLayout = ({
             name="name"
             onChange={formik.handleChange}
           />
+          <ErrorMessage name="name" formik={formik} />
         </div>
         <div className="mt-4">
           <label className="text-[#616161] font-bold">Hình ảnh</label>
@@ -73,6 +77,7 @@ const FooodPageLayout = ({
               </>
             )}
           </div>
+          <ErrorMessage name="image" formik={formik} />
         </div>
         <div className="mt-4">
           <label className="text-[#616161] font-bold mb-1">Nội dung</label>
@@ -98,6 +103,7 @@ const FooodPageLayout = ({
               }}
             />
           </div>
+          <ErrorMessage name="content" formik={formik} />
         </div>
       </form>
     </div>

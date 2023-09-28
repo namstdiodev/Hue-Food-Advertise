@@ -47,11 +47,6 @@ const SiderMenu = ({ selectedKey }: { selectedKey: string }) => {
             icon: <VideoCameraOutlined />,
             label: <Link href="/foods">Thực đơn</Link>,
           },
-          {
-            key: "2",
-            icon: <UserOutlined />,
-            label: <Link href="/users">Quản lý người dùng</Link>,
-          },
         ]}
       />
     </div>

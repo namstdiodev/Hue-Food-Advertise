@@ -1,8 +1,6 @@
 import { useFormik, FormikProps } from "formik";
 import { ReceivedProps } from "./type";
-import {
-  convertToRaw,
-} from "draft-js";
+import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import { useDropzone } from "react-dropzone";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
@@ -15,6 +13,7 @@ import {
 } from "firebase/storage";
 import { alertError } from "@src/helpers/errorElert";
 import { useRouter } from "next/navigation";
+import { validation } from "./valitdation";
 
 const useFoods = (props: ReceivedProps) => {
   const { initValue } = props;
@@ -26,6 +25,7 @@ const useFoods = (props: ReceivedProps) => {
       content: initValue?.content || "",
       image: initValue?.food_image,
     },
+    validationSchema: validation,
     onSubmit: (values: any) =>
       !initValue ? handleSubmitFood(values) : handleEditFood(values),
   });
@@ -79,7 +79,7 @@ const useFoods = (props: ReceivedProps) => {
     }
   };
 
-  const onEditorStateChange = (state: never) => {
+  const onEditorStateChange = (state: any) => {
     formik.setFieldValue("content", state);
   };
 
