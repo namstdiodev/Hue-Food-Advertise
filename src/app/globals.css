@@ -19,3 +19,7 @@
 body {
   color: #000000;
 }
+
+:where(.css-dev-only-do-not-override-1ck3jst).ant-btn-primary {
+  background-color: #ff0000 !important;
+}

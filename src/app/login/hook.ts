@@ -4,7 +4,8 @@ import { validation } from "./validate";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase/initFirebase";
-import { setCookie } from 'cookies-next';
+import { setCookie } from "cookies-next";
+import { useState } from "react";
 
 const useLogin = (props: ReceivedProps) => {
   const router = useRouter();
@@ -22,19 +23,27 @@ const useLogin = (props: ReceivedProps) => {
 
   const handleSignIn = async (values: IFormLoginValues) => {
     try {
-      const response: any =  await await signInWithEmailAndPassword(auth, values.email, values.password);
+      const response: any = await await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
       // setCookie('token', response.user.accessToken)
-      setCookie('uid', response.user.uid)
+      setCookie("uid", response.user.uid);
       router.push("/foods");
     } catch (error) {
       console.log(error, "Error");
     }
   };
 
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
   return {
     ...props,
     handleSignIn,
     formik,
+    isShowPassword,
+    setIsShowPassword,
   };
 };
 
