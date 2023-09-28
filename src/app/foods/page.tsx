@@ -74,7 +74,12 @@ const FooodPageLayout = ({
       dataIndex: "content",
       align: "center",
       key: "id",
-      render: (value) => <div className="max-h-[200px] overflow-auto" dangerouslySetInnerHTML={{ __html: value }} />,
+      render: (value) => (
+        <div
+          className="max-h-[200px] overflow-auto"
+          dangerouslySetInnerHTML={{ __html: value }}
+        />
+      ),
     },
     {
       title: "Hình ảnh",
@@ -83,7 +88,7 @@ const FooodPageLayout = ({
       key: "id",
       render: (value) => (
         <div className="flex justify-center">
-          <Image className="h-[70px] rounded-lg" width={70} height={100} src={value} alt="image_food" />
+          <Image width={100} height={100} src={value} alt="image_food" />
         </div>
       ),
     },
