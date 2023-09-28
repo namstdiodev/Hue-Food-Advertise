@@ -3,11 +3,14 @@ import { db } from "../../../firebase/initFirebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { ChangeEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import useWindowDimensions from "@src/hooks/useWindowDimensions";
 
 const useFoods = (props: ReceivedProps) => {
   const [data, setData] = useState<DataType[]>([]);
   const [foods, setFoods] = useState<DataType[]>([]);
   const [search, setSearch] = useState<string>("");
+  const { height, width } = useWindowDimensions();
+
   const router = useRouter();
 
   const fetchFoods = async () => {
@@ -57,6 +60,7 @@ const useFoods = (props: ReceivedProps) => {
     ...props,
     foods,
     search,
+    width,
     handleDelete,
     handeCreateFood,
     setSearch,

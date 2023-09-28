@@ -43,12 +43,12 @@ const UserPageLayout = ({ users, handleCreateNavigation }: Props) => {
   ];
   return (
     <div className="bg-white round-sm p-4">
-      <div className="flex items-center mb-8 justify-between">
+      {/* <div className="flex items-center mb-8 justify-between">
         <p className="text-xl font-bold">Tạo Tài Khoản</p>
         <Button onClick={handleCreateNavigation} htmlType="submit">
           Tạo tài khoản
         </Button>
-      </div>
+      </div> */}
       <Table
         columns={columns}
         pagination={{ position: ["bottomCenter"] }}

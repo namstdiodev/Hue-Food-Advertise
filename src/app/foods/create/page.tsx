@@ -25,7 +25,7 @@ const FooodPageLayout = ({
     <div className="bg-white rounded-md p-4">
       <form onSubmit={formik.handleSubmit}>
         <div className="flex items-center justify-between">
-          <p className="text-xl font-bold mb-8">Tạo Món Ăn</p>
+          <p className="text-xl font-bold mb-8">{initValue ? 'Chỉnh Sửa Món Ăn' : 'Tạo Món Ăn'}</p>
           <Button loading={formik.isSubmitting} htmlType="submit">
             {initValue ? 'Lưu' : 'Tạo món ăn'}
           </Button>

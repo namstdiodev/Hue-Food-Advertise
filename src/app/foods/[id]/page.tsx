@@ -4,12 +4,12 @@ import useFoodDetail, { Props } from "./hook";
 import { ReceivedProps } from "../type";
 import Image from "next/image";
 
-const FoodDetailPageLayout = ({ foodDataDetail, loading }: Props) => {
+const FoodDetailPageLayout = ({ foodDataDetail, loading, handleEdit }: Props) => {
   return (
     <div className="bg-white p-4 rounded-lg">
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-xl mb-6">{foodDataDetail?.name}</h1>
-        <Button className="absolute right-10 cursor-pointer">Chỉnh sửa</Button>
+        <Button onClick={handleEdit} className="absolute right-10 cursor-pointer">Chỉnh sửa</Button>
       </div>
       <Row gutter={32}>
         <Col span={12}>

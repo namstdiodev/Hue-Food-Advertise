@@ -19,6 +19,11 @@
 body {
   color: #000000;
 }
-:where(.css-dev-only-do-not-override-1ck3jst).ant-btn-primary {
-  background-color: #ff0000;
+.ant-modal-confirm-btns > .ant-btn-primary {
+  background-color: #ff5c5f !important;
+  border: none;
+  box-shadow: none;
+}
+.ant-image-preview-img {
+  border-radius: 8px;
 }

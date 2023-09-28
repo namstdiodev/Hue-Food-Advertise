@@ -28,9 +28,12 @@ import listIconActive from "../../../public/icons/icon-view-list-active.svg";
 import styled from "styled-components";
 import FoodCard from "@src/components/FoodCard";
 
-const CustomTabs = styled(Tabs)`
+const CustomTabs = styled(Tabs)<{ $isWidthSmall: boolean }>`
   .ant-tabs-ink-bar {
     display: none;
+  }
+  .ant-tabs-nav-wrap {
+    display: ${(props) => (props.$isWidthSmall ? "none" : "block")} !important;
   }
   .ant-tabs-tab {
     padding: 0px;
@@ -48,7 +51,15 @@ const GridLayout = ({ foods }: { foods: DataType[] }) => {
     <div className="overflow-hidden">
       <Row gutter={24} className="">
         {foods.map((food: DataType) => (
-          <Col className="mb-[24px]" span={4} key={food.id}>
+          <Col
+            className="mb-[24px]"
+            xs={24}
+            sm={12}
+            lg={8}
+            xl={6}
+            xxl={4}
+            key={food.id}
+          >
             <FoodCard data={food} />
           </Col>
         ))}
@@ -60,6 +71,7 @@ const GridLayout = ({ foods }: { foods: DataType[] }) => {
 const FooodPageLayout = ({
   foods,
   search,
+  width,
   setSearch,
   handeCreateFood,
   handleDelete,
@@ -191,7 +203,7 @@ const FooodPageLayout = ({
   return (
     <div className="bg-white round-sm p-4 relative">
       <div className="flex items-center justify-between mb-8">
-        <p className="text-xl font-bold">Tạo Món Ăn</p>
+        <p className="text-xl font-bold">Danh sách Món Ăn</p>
         <Button
           onClick={handeCreateFood}
           className="absolute right-10 cursor-pointer"
@@ -207,7 +219,13 @@ const FooodPageLayout = ({
           onChange={handleSearch}
         />
       </div>
-      <CustomTabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <CustomTabs
+        $isWidthSmall={width <= 769}
+        activeKey={width <= 769 ? "2" : activeKey}
+        defaultActiveKey="1"
+        items={items}
+        onChange={onChange}
+      />
     </div>
   );
 };
