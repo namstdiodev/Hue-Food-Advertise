@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  huefood:
+    build:
+      context: ./
+    container_name: hue-food
+    ports:
+      - '8095:3000'
